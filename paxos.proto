@@ -1,0 +1,130 @@
+syntax = "proto3";
+
+package paxos;
+
+option go_package = "/paxos";
+
+// Transaction message for logging
+message Transaction {
+  string sender = 1;
+  string receiver = 2;
+  int32 amount = 3;
+}
+
+// Define the PrepareRequest message
+message PrepareRequest {
+  int32 ballot_number = 1;
+  int32 server_id = 2;
+}
+
+// Define the PromiseResponse message
+message PromiseResponse {
+    bool accepted = 1;
+    repeated Transaction log = 2;
+}
+
+
+// Define the AcceptRequest message
+message AcceptRequest {
+  int32 ballot_number = 1;
+  repeated Transaction log = 2;  // Accept includes the log of transactions
+}
+
+// Define the AcceptedResponse message
+message AcceptedResponse {
+  bool accepted = 1;
+  int32 server_id = 2;
+}
+
+// Define the CommitRequest message
+message CommitRequest {
+  int32 ballot_number = 1;
+  repeated Transaction log = 2;  // Committed transactions
+}
+
+// Define the CommitResponse message
+message CommitResponse {
+  bool committed = 1;
+  int32 server_id = 2;
+}
+
+// TransactionRequest and TransactionResponse for transaction processing
+message TransactionRequest {
+  string sender = 1;
+  string receiver = 2;
+  int32 amount = 3;
+}
+
+message TransactionResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// New messages for additional functions
+message PrintBalanceRequest {
+  string client_id = 1;
+}
+
+message PrintBalanceResponse {
+  int32 balance = 1;
+}
+
+message PrintLogRequest {
+  int32 server_id = 1;
+}
+
+message PrintLogResponse {
+  repeated Transaction log = 1;
+}
+
+message PrintDBRequest {
+  int32 server_id = 1;
+}
+
+message PrintDBResponse {
+  repeated Transaction log = 1;
+}
+
+message PerformanceRequest {}
+
+message PerformanceResponse {
+  double throughput = 1;
+  double latency = 2;
+}
+
+// New messages for Sync
+message SyncRequest {
+  string client_id = 1;
+}
+
+message SyncResponse {
+  bool success = 1;
+}
+
+message AcceptResponse {
+    bool accepted = 1;
+}
+
+message UpdateLiveServersRequest {
+  repeated string live_servers = 1;
+}
+
+message UpdateLiveServersResponse {
+
+}
+
+
+// Define the service
+service PaxosService {
+  rpc Prepare (PrepareRequest) returns (PromiseResponse);
+  rpc Accept (AcceptRequest) returns (AcceptedResponse);
+  rpc Commit (CommitRequest) returns (CommitResponse);
+  rpc ProcessTransaction (TransactionRequest) returns (TransactionResponse);
+  rpc PrintBalance (PrintBalanceRequest) returns (PrintBalanceResponse);
+  rpc PrintLog (PrintLogRequest) returns (PrintLogResponse);
+  rpc PrintDB (PrintDBRequest) returns (PrintDBResponse);
+  rpc Performance (PerformanceRequest) returns (PerformanceResponse);
+  rpc Sync (SyncRequest) returns (SyncResponse);
+  rpc UpdateLiveServers(UpdateLiveServersRequest) returns (UpdateLiveServersResponse) {}
+
+}
