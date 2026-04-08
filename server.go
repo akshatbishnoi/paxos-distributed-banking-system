@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	pb "cse535lab1/paxos"
+	pb "paxos_distributed_banking_system/paxos"
 
 	"google.golang.org/grpc"
 )

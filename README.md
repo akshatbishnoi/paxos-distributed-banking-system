@@ -24,7 +24,7 @@ It was built as a distributed systems project and focuses on:
 - `server.go`: server state, consensus logic, transaction processing, and metrics
 - `paxos.proto`: service and message definitions
 - `paxos/`: generated protobuf Go files
-- `lab1_Test.csv`: sample batch input for local experimentation
+- `sample_transactions.csv`: optional sample batch input for local experimentation
 
 ## Running the Project
 
@@ -46,7 +46,7 @@ In a separate terminal:
 go run main.go
 ```
 
-The client reads transactions from `lab1_Test.csv`. You can modify the CSV to try different batches and server availability scenarios.
+The client is configured to read from `sample_transactions.csv`. In this public version, you can add your own file in that format if you want to run custom batches.
 
 ## Notes
 

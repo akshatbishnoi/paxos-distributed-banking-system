@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	pb "cse535lab1/paxos"
+	pb "paxos_distributed_banking_system/paxos"
 
 	"google.golang.org/grpc"
 )
@@ -201,7 +201,7 @@ func main() {
 		clients[i] = InitializeClient(fmt.Sprintf("S%d", i+1), 50051+i)
 	}
 
-	transactionBatches, err := loadCSVTransactions("lab1_Test.csv")
+	transactionBatches, err := loadCSVTransactions("sample_transactions.csv")
 	if err != nil {
 		log.Fatalf("Error loading transaction CSV: %v", err)
 	}

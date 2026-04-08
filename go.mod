@@ -1,4 +1,4 @@
-module cse535lab1
+module paxos_distributed_banking_system
 
 go 1.23.2
 
